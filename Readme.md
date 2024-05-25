@@ -56,3 +56,10 @@ export default App
 
 
 ```
+
+# Virtual DOM, Fibre and reconciliation
+
+
+# React js interview question
+<p>1. </p>
+
