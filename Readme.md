@@ -70,7 +70,136 @@ export default App
 # Virtual DOM, Fibre and reconciliation
 
 
-# React js interview question
-<p>1. </p>
+### what is the difference between using anchor tag and Link from react-router-dom 
+<p>When we use anchor tag or <a></a>  tag it refresh the page when we click on the link. which we don't want....because when the page is refreshed new copy of the dom is requested to web server which creates delay. Therefore, we use Link tag to solve the problems.</p>
 
->>>>>>> 21e607e1f31eea528179aa57ba32e3651a2b6850
+
+## useContext
+
+<p>concept behind using useContext: </p>
+<h5>why should we use useContext hook in react js??????</h5>
+<p>When we want to pass the props between the components then using useState is lengthy process, and difficult to implement. Therefore, this useContext hook make this process easy. </p>
+# without useContext hook
+
+```javascript
+
+import { useState } from "react";
+import ReactDOM from "react-dom/client";
+
+function Component1() {
+  const [user, setUser] = useState("Jesse Hall");
+
+  return (
+    <>
+      <h1>{`Hello ${user}!`}</h1>
+      <Component2 user={user} />
+    </>
+  );
+}
+
+function Component2({ user }) {
+  return (
+    <>
+      <h1>Component 2</h1>
+      <Component3 user={user} />
+    </>
+  );
+}
+
+function Component3({ user }) {
+  return (
+    <>
+      <h1>Component 3</h1>
+      <Component4 user={user} />
+    </>
+  );
+}
+
+function Component4({ user }) {
+  return (
+    <>
+      <h1>Component 4</h1>
+      <Component5 user={user} />
+    </>
+  );
+}
+
+function Component5({ user }) {
+  return (
+    <>
+      <h1>Component 5</h1>
+      <h2>{`Hello ${user} again!`}</h2>
+    </>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Component1 />);
+
+
+
+```
+<p>In the above example we are passing the states from one components to another. More importantly, even though components 2 and 4 don't need state implementation, they need to pass the state along with it so that the state can be passed to the component 5.</p>
+
+
+# Using useContext hook
+
+<h4>At first we need to create context </h4>
+
+```javascript
+
+import { useState, createContext } from "react";
+import ReactDOM from "react-dom/client";
+
+const UserContext = createContext()
+
+export default UserContext;
+
+```
+
+Then create context provider 
+
+```javascript
+
+function Component1() {
+  const [user, setUser] = useState("Jesse Hall");
+
+  return (
+    <UserContext.Provider value={user}>
+      <h1>{`Hello ${user}!`}</h1>
+      <Component2 user={user} />
+    </UserContext.Provider>
+  );
+}
+
+```
+
+<p>important : Now all the child components have the access to these states</p>
+
+
+
+```javascript
+import { useState, createContext, useContext } from "react";
+
+function Component5() {
+  const user = useContext(UserContext);
+
+  return (
+    <>
+      <h1>Component 5</h1>
+      <h2>{`Hello ${user} again!`}</h2>
+    </>
+  );
+}
+
+```
+
+useContext removes the unnecessarily passing the propes from one components to another components
+
+
+
+
+
+
+
+
