@@ -13,7 +13,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div >
       <h2>Login</h2>
       <input
         type="text"
